@@ -20,7 +20,11 @@ detect_assignment() {
 
 if detect_assignment; then
   cp -R ~/mini-moulinette/mini-moul mini-moul
-  run_norminette
+  if command -v norminette &> /dev/null; then
+  	norminette $(ls | grep -v 'mini-moul')
+  else
+  	echo "norminette not found, skipping norminette checks"
+  fi
   trap handle_sigint SIGINT
   cd mini-moul
   ./test.sh "$assignment"
@@ -31,11 +35,3 @@ else
 fi
 
 exit 1
-
-run_norminette() {
-  if command -v norminette &> /dev/null; then
-    norminette
-  else
-    echo "norminette not found, skipping norminette checks"
-  fi
-}
