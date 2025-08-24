@@ -47,6 +47,54 @@ int main(void)
             .charset = "ab",
             .expected = (char *[]){ "ccc", 0 },
         },
+        {
+        	.desc = "String containing only separators",
+         	.str = ",,,,,,,,,",
+          	.charset = ",",
+           	.expected = (char *[1]) {0},
+        },
+        {
+        	.desc = "NULL string input",
+         	.str = NULL,
+          	.charset = ",",
+           	.expected = (char *[1]) {0},
+        },
+        {
+        	.desc = "Single character string",
+         	.str = "a",
+          	.charset = ",",
+           	.expected = (char *[2]) {"a", 0},
+        },
+        {
+        	.desc = "Single characer that is separator",
+         	.str = ",",
+          	.charset = ",",
+           	.expected = (char *[1]) {0},
+        },
+        {
+        	.desc = "Mixed separators throughout string",
+         	.str = "hello,world;test:data",
+          	.charset = ",;:",
+           	.expected = (char *[5]) {"hello", "world", "test", "data", 0},
+        },
+        {
+        	.desc = "Many small words",
+         	.str = "a,b,c,d,e,f,g",
+          	.charset = ",",
+           	.expected = (char *[8]) {"a", "b", "c", "d", "e", "f", "g", 0},
+        },
+        {
+        	.desc = "Charset cntains characters from words",
+         	.str = "hello,world",
+          	.charset = "lo,",
+           	.expected = (char *[4]) {"he", "w", "rd", 0},
+        },
+        {
+        	.desc = "Charset with duplicated characters",
+         	.str = "Hello,World,Test,Data",
+          	.charset = ",,,,",
+           	.expected = (char *[5]) {"Hello", "World", "Test", "Data", 0},
+        },
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 
