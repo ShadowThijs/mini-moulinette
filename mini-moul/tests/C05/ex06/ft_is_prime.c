@@ -132,6 +132,16 @@ int main(void)
             .n = 121,
             .expected = 0,
         },
+	{
+	    .desc = "Is 2147480197 prime (should not take longer than a second to test)",
+	    .n = 2147480197,
+	    .expected = 1,
+	},
+	{
+	    .desc = "Is 2147480927 prime (should not take longer than a second to test)",
+	    .n = 2147480927,
+	    .expected = 1,
+	}
     };
     int count = sizeof(tests) / sizeof(tests[0]);
 
